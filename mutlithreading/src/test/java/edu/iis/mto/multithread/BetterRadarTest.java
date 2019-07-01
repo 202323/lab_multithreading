@@ -21,4 +21,13 @@ public class BetterRadarTest {
         verify(patriotBattery, times(10)).launchPatriot();
     }
 
+    @Test
+    public void launchPatriotTwiceFromAnotherThreadWhenScudMissileIsNoticed() {
+        launchSAMs = new LaunchSAMs(ExecutionLocation.OVER_THERE);
+        betterRadar = new BetterRadar(patriotBattery, launchSAMs, 2);
+        betterRadar.notice(new Scud());
+
+        verify(patriotBattery, times(2)).launchPatriot();
+    }
+
 }
